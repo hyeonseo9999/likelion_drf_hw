@@ -56,24 +56,3 @@ def singer_detail_update_delete(request, singer_id):
             'deleted_singer' : singer_id
         }
         return Response(data)
-    
-@api_view(['GET', 'PATCH', 'DELETE'])
-def song_detail_update_delete(request, song_id):
-    song = get_object_or_404(Song, id=song_id)
-
-    if request.method == 'GET':
-        serializer = SongSerializer(song)
-        return Response(serializer.data)
-    
-    elif request.method == 'PATCH':
-        serializer = SongSerializer(instance=song, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-            
-    elif request.method == 'DELETE':
-        song.delete()
-        data = {
-            'deleted_song' : song_id
-        }
-        return Response(data)
