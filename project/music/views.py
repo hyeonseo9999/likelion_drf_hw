@@ -33,3 +33,45 @@ def song_list_create(request):
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(data=serializer.data)
+        
+@api_view(['GET', 'PATCH', 'DELETE'])
+def singer_detail_update_delete(request, singer_id):
+    singer = get_object_or_404(Singer, id=singer_id)
+
+    if request.method == 'GET':
+        serializer = SingerSerializer(singer)
+        return Response(serializer.data)
+    
+    elif request.method == 'PATCH':
+        serializer = SingerSerializer(instance=singer, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+            
+    elif request.method == 'DELETE':
+        singer.delete()
+        data = {
+            'deleted_singer' : singer_id
+        }
+        return Response(data)
+    
+@api_view(['GET', 'PATCH', 'DELETE'])
+def song_detail_update_delete(request, song_id):
+    song = get_object_or_404(Song, id=song_id)
+
+    if request.method == 'GET':
+        serializer = SongSerializer(song)
+        return Response(serializer.data)
+    
+    elif request.method == 'PATCH':
+        serializer = SongSerializer(instance=song, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+            
+    elif request.method == 'DELETE':
+        song.delete()
+        data = {
+            'deleted_song' : song_id
+        }
+        return Response(data)
