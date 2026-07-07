@@ -11,4 +11,4 @@ class Song(models.Model):
     id = models.AutoField(primary_key=True)
     singer = models.ForeignKey(Singer, null=False, blank=False, on_delete=models.CASCADE)  
     release = models.DateField()  
-    content = models.TextField()  
+    content = models.TextField()
