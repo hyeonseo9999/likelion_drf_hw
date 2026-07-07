@@ -7,5 +7,5 @@ app_name = "music"
 urlpatterns = [
     path('', views.singer_list_create),
     path('<int:singer_id>', views.singer_detail_update_delete),
-    path('songs', views.song_list_create),
+    path('<int:singer_id>/songs', views.song_list_create),
 ]
